@@ -1,3 +1,16 @@
 #!/bin/sh
 
 alias dkps="docker ps --format 'table{{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}'" 
+
+dke(){
+  docker exec -it $1 /bin/bash 
+}
+
+dken(){
+  docker exec -it `docker ps --format 'table{{.ID}}\t{{.Names}}' | grep ${1}$ | awk '{print $1}'` /bin/bash
+}
+
+
+dkln() {
+  docker logs -f `docker ps --format 'table{{.ID}}\t{{.Names}}' | grep ${1}$ | awk '{print $1}'`
+}
